@@ -7,7 +7,8 @@ const {
   INVALID_CREDENTIALS,
   UNAUTHENTICATED,
   USER_ALREADY_EXISTS,
-  USER_NOT_FOUND,
+  EMPTY_STUDENT_LIST,
+  INVALID_STUDENT_LIST,
 } = require("../config/error-code");
 const { formatErrorMessage } = require("../utils/utils");
 const { hasher } = require("../utils/hasher");
@@ -21,6 +22,8 @@ const {
   saveUser,
   getUserSessionByUserId,
   updateUserSession,
+  getStudentList,
+  getStudentListByIds,
 } = require("../database/mysql/repository/user");
 
 class AuthService {
@@ -126,6 +129,26 @@ class AuthService {
   async fetchUserSessionByUserId(userId) {
     const userSession = await getUserSessionByUserId(userId);
     return userSession;
+  }
+
+  async validateStudentList(studentList) {
+    if (_isEmpty(studentList)) {
+      throw formatErrorMessage(EMPTY_STUDENT_LIST);
+    } else {
+      const students = await getStudentListByIds(studentList);
+      if (studentList.length !== students.length) {
+        throw formatErrorMessage(INVALID_STUDENT_LIST);
+      }
+    }
+  }
+
+  /*  Not adding controller for this as this is not a specific requirement,
+      but assuming that tutors would have one tab on UI 
+      where they would see list of all students and based on that list
+      they would assign the tasks(assignments) to students 
+  */
+  async fetchStudentList() {
+    return await getStudentList();
   }
 
   async removeSession(sessionId) {

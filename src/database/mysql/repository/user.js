@@ -1,8 +1,10 @@
 const _get = require("lodash/get");
-const { User, UserSession } = require("./index");
+const _isEmpty = require("lodash/isEmpty");
+const { Users, UserSession } = require("./index");
+const { Op } = require("sequelize");
 
 const saveUser = async (email, password, isStudent) => {
-  await User.create({
+  await Users.create({
     email,
     password,
     isStudent,
@@ -10,7 +12,7 @@ const saveUser = async (email, password, isStudent) => {
 };
 
 const getUserDetailsByEmail = async (email) => {
-  const result = await User.findOne({
+  const result = await Users.findOne({
     attributes: [["id", "userId"], "email", "isStudent"],
     where: {
       email,
@@ -22,7 +24,7 @@ const getUserDetailsByEmail = async (email) => {
 };
 
 const getUserDetails = async (email, hashedPassword) => {
-  const result = await User.findOne({
+  const result = await Users.findOne({
     attributes: [["id", "userId"], "email", "isStudent"],
     where: {
       email,
@@ -37,12 +39,31 @@ const getUserDetails = async (email, hashedPassword) => {
 const getUserSession = async (sessionId) => {
   const result = await UserSession.findOne({
     attributes: ["sessionId", "userId"],
+    include: [
+      {
+        attributes: ["isStudent"],
+        model: Users,
+        required: true,
+      },
+    ],
     where: {
       sessionId,
     },
   });
 
-  const userSession = _get(result, ["dataValues"], null);
+  let userSession = null;
+
+  if (!_isEmpty(result)) {
+    userSession = {
+      ..._get(result, ["dataValues"], null),
+      ..._get(result, ["dataValues", "user", "dataValues"], null),
+    };
+
+    if (userSession.user) {
+      delete userSession.user;
+    }
+  }
+
   return userSession;
 };
 
@@ -84,6 +105,37 @@ const deleteSession = async (sessionId) => {
   });
 };
 
+const getStudentListByIds = async (studentIds) => {
+  const result = await Users.findAll({
+    where: {
+      id: {
+        [Op.in]: studentIds,
+      },
+      isStudent: true,
+    },
+  });
+
+  let studentList = [];
+  if (!_isEmpty(result)) {
+    studentList = result.map((student) => ({
+      ..._get(student, ["dataValues"], {}),
+    }));
+  }
+
+  return studentList;
+};
+
+const getStudentList = async () => {
+  const result = await Users.findAll({
+    where: {
+      isStudent: true,
+    },
+  });
+
+  const studentList = _get(result, ["dataValues"], []);
+  return studentList;
+};
+
 module.exports = {
   saveUser,
   getUserDetailsByEmail,
@@ -93,4 +145,6 @@ module.exports = {
   deleteSession,
   updateUserSession,
   getUserSessionByUserId,
+  getStudentListByIds,
+  getStudentList,
 };

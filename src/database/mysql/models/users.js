@@ -22,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false,
       },
-      assignmentId: {
-        type: DataTypes.INTEGER(15),
-        allowNull: false,
-        defaultValue: 0,
+      assignmentIds: {
+        type: DataTypes.JSON,
+        allowNull: true,
+        defaultValue: null,
       },
     },
     { sequelize, tableName: "users" }

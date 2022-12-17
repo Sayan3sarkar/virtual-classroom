@@ -14,7 +14,9 @@ const config = {
     user: env.DB_USERNAME,
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
+    timezone: env.DB_TIMEZONE,
     multipleStatements: true,
+    enableSqlLogs: +env.ENABLE_SQL_LOGS || 0,
   },
   auth: {
     jwtSecret: env.JWT_SECRET,

@@ -4,7 +4,7 @@ const { AuthService } = require("../services/AuthService");
 const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const isStudent = _get(req, ["body", "isStudent"], false); // isStudent by default false
+    const isStudent = _get(req, ["body", "isStudent"], true); // isStudent by default false
     const authService = new AuthService();
     authService.validateInput(email, password);
 

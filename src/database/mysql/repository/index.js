@@ -10,7 +10,7 @@ const sequelizeConn = new Sequelize(
     host: config.mysql.host,
     dialect: "mysql",
     logging: (ele) => {
-      if (process.env.enableSqlLogs) {
+      if (process.env.ENABLE_SQL_LOGS == 1) {
         console.log(ele);
       }
     },
@@ -29,22 +29,50 @@ const closeConnection = async () => {
   await sequelizeConn.close();
 };
 
-const User = require("../models/users")(sequelizeConn, DataTypes);
+const Users = require("../models/users")(sequelizeConn, DataTypes);
 const UserSession = require("../models/userSession")(sequelizeConn, DataTypes);
+const Assignments = require("../models/assignments")(sequelizeConn, DataTypes);
+const Submissions = require("../models/submissions")(sequelizeConn, DataTypes);
 
-User.hasOne(UserSession, {
+Users.hasOne(UserSession, {
   sourceKey: "id",
   foreignKey: "userId",
 });
 
-UserSession.hasOne(User, {
-  sourceKey: "userId",
-  foreignKey: "id",
+UserSession.belongsTo(Users, {
+  targetKey: "id",
+  foreignKey: "userId",
 });
+
+Assignments.hasMany(Submissions, {
+  sourceKey: "id",
+  foreignKey: "assignmentId",
+});
+
+Submissions.belongsTo(Assignments, {
+  targetKey: "id",
+  foreignKey: "assignmentId",
+});
+
+// Users.belongsToMany(Assignments, {
+//   through: Submissions,
+// constraints: false,
+// foreignKey: "studentId",
+// sourceKey: "id",
+// });
+
+// Assignments.belongsToMany(Users, {
+//   through: Submissions,
+// constraints: false,
+// foreignKey: "id",
+// sourceKey: "studentId",
+// });
 
 module.exports = {
   sequelizeConn,
-  User,
+  Users,
   UserSession,
+  Assignments,
+  Submissions,
   closeConnection,
 };

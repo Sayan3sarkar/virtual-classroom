@@ -7,6 +7,16 @@ const formatErrorMessage = (errorKey) => {
   return error;
 };
 
+const customErrorMessageUtil = (errorKey, addOnMessage) => {
+  const error = new Error(
+    _get(errorKey, ["message"], "Something went wrong") + addOnMessage
+  );
+  error.statusCode = _get(errorKey, ["statusCode"], 500);
+  error.errorCode = _get(errorKey, ["errorCode"], "INTERNAL_SERVER_ERROR");
+  return error;
+};
+
 module.exports = {
   formatErrorMessage,
+  customErrorMessageUtil,
 };
