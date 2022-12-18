@@ -119,8 +119,18 @@ const deleteAssignment = async (req, res, next) => {
 /****** Student Controllers ******/
 // PENDING
 const submitAssignment = async (req, res, next) => {
-  console.log("Inside Submit Assignment");
-  res.send();
+  const { id: assignmentId } = req.params;
+  const { userId, isStudent } = req.user;
+  const { remark = null } = req.body;
+  try {
+    const assignmentService = new AssignmentService(userId, isStudent);
+    await assignmentService.validateSubmission(assignmentId, remark);
+    await assignmentService.submitAssignment(assignmentId, remark);
+    res.send(`Submitted assignment succesfully`);
+  } catch (err) {
+    console.log(`Error while submitting assignment by ${userId} ||| ${err}`);
+    next(err);
+  }
 };
 
 module.exports = {

@@ -19,7 +19,7 @@ const getAssignmentDetailsForTutor = async (assignmentId, tutorId) => {
     ],
     include: {
       model: Submissions,
-      attributes: ["studentId", "remark", "status"],
+      attributes: [["id", "submissionId"], "studentId", "remark", "status"],
       required: true,
     },
     where: {
@@ -42,7 +42,13 @@ const getAssignmentDetailsForTutor = async (assignmentId, tutorId) => {
 
 const getAssignmentDetailsForStudent = async (assignmentId, studentId) => {
   const result = await Submissions.findOne({
-    attributes: ["assignmentId", "remark", "submissionDate", "status"],
+    attributes: [
+      ["id", "submissionId"],
+      "assignmentId",
+      "remark",
+      "submissionDate",
+      "status",
+    ],
     include: {
       model: Assignments,
       attributes: ["description", "deadline", "publishedAt", "tutorId"],
@@ -119,6 +125,21 @@ const deleteAssignmentById = async (assignmentId) => {
   });
 };
 
+const updateSubmission = async (assignmentId, remark, studentId) => {
+  await Submissions.update(
+    {
+      remark,
+      status: "SUBMITTED",
+    },
+    {
+      where: {
+        assignmentId,
+        studentId,
+      },
+    }
+  );
+};
+
 module.exports = {
   createNewAssignment,
   createNewSubmission,
@@ -127,4 +148,5 @@ module.exports = {
   getAssignmentById,
   updateAssignmentById,
   deleteAssignmentById,
+  updateSubmission,
 };

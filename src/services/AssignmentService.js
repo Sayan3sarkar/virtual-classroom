@@ -10,6 +10,7 @@ const {
   UNAUTHORIZED,
   EMPTY_ASSIGNMENT_ID,
   INVALID_ASSIGNMENT_ID,
+  INVALID_SUBMISSION,
 } = require("../config/error-code");
 const {
   createNewAssignment,
@@ -19,6 +20,7 @@ const {
   getAssignmentById,
   updateAssignmentById,
   deleteAssignmentById,
+  updateSubmission,
 } = require("../database/mysql/repository/assignments");
 const { AuthService } = require("./AuthService");
 
@@ -32,6 +34,22 @@ class AssignmentService extends AuthService {
     super();
     this.userId = userId;
     this.isStudent = isStudent;
+  }
+
+  async validateSubmission(assignmentId, remarks) {
+    if (_isEmpty(assignmentId)) {
+      throw formatErrorMessage(EMPTY_ASSIGNMENT_ID);
+    }
+
+    if (_isEmpty(remarks)) {
+      throw formatErrorMessage(INVALID_SUBMISSION);
+    }
+
+    const assignmentDetails = await this.fetchAssignment(assignmentId);
+
+    if (_isEmpty(assignmentDetails)) {
+      throw formatErrorMessage(INVALID_SUBMISSION);
+    }
   }
 
   async fetchAssignments() {
@@ -153,6 +171,10 @@ class AssignmentService extends AuthService {
 
   async deleteAssignment(assingmentId) {
     await deleteAssignmentById(assingmentId);
+  }
+
+  async submitAssignment(assignmentId, remark) {
+    await updateSubmission(assignmentId, remark, this.userId);
   }
 }
 

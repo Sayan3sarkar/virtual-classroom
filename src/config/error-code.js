@@ -64,6 +64,12 @@ const INVALID_ASSIGNMENT_ID = {
   message: "Invalid Assignment Id",
 };
 
+const INVALID_SUBMISSION = {
+  statusCode: 400,
+  errorCode: "INVALID_SUBMISSION",
+  message: `Remarks can't be empty/${UNAUTHORIZED.message}/${INVALID_ASSIGNMENT_ID.message}`,
+};
+
 module.exports = {
   MISSING_USER_TOKEN,
   INVALID_CREDENTIALS,
@@ -76,4 +82,5 @@ module.exports = {
   INVALID_STUDENT_LIST,
   EMPTY_ASSIGNMENT_ID,
   INVALID_ASSIGNMENT_ID,
+  INVALID_SUBMISSION,
 };
