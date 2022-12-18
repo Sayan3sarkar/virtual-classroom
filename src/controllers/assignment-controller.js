@@ -7,12 +7,13 @@ const { EOD } = require("../config/constants");
 const { customErrorMessageUtil } = require("../utils/utils");
 const { UNAUTHORIZED } = require("../config/error-code");
 
-// PENDING
+// Filters Untested, May not be working
 const assignmentFeed = async (req, res, next) => {
   const { userId, isStudent } = req.user;
+  const filters = req.body;
   try {
     const assignmentService = new AssignmentService(userId, isStudent);
-    const assignments = await assignmentService.fetchAssignments();
+    const assignments = await assignmentService.fetchAssignments(filters);
     res.send(assignments);
   } catch (err) {
     console.log(
