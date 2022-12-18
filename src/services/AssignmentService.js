@@ -21,6 +21,8 @@ const {
   updateAssignmentById,
   deleteAssignmentById,
   updateSubmission,
+  assignmentFeedForTutor,
+  assignmentFeedForStudent,
 } = require("../database/mysql/repository/assignments");
 const { AuthService } = require("./AuthService");
 
@@ -52,9 +54,12 @@ class AssignmentService extends AuthService {
     }
   }
 
-  async fetchAssignments() {
-    const assignments = []; //TODO: create DB method to fetch assignments
-    return assignments;
+  async fetchAssignments(filter = {}) {
+    if (this.isStudent) {
+      return await assignmentFeedForStudent(filter, this.userId);
+    } else {
+      return await assignmentFeedForTutor(filter, this.userId);
+    }
   }
 
   async fetchAssignment(assignmentId) {

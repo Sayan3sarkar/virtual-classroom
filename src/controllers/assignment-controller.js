@@ -117,7 +117,6 @@ const deleteAssignment = async (req, res, next) => {
 };
 
 /****** Student Controllers ******/
-// PENDING
 const submitAssignment = async (req, res, next) => {
   const { id: assignmentId } = req.params;
   const { userId, isStudent } = req.user;
