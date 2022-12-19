@@ -1,0 +1,376 @@
+{
+  "info": {
+    "_postman_id": "c0755031-0a1c-494d-af97-5d8207f07573",
+    "name": "Virtual Classroom",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17308644"
+  },
+  "item": [
+    {
+      "name": "User Login",
+      "item": [
+        {
+          "name": "Tutor Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test2@test.com\",\n    \"password\": \"abcd1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Student Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"student1@test.com\",\n    \"password\": \"abcd1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/login",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Signup",
+      "item": [
+        {
+          "name": "Student Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"student1@test.com\",\n    \"password\": \"abcd1234\",\n    \"isStudent\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/signup",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user", "signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tutor Signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test1@test.com\",\n    \"password\": \"abcd1234\",\n    \"isStudent\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/user/signup",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["user", "signup"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Logout",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJzZXNzaW9uSWQiOiJhMDg4YjMyNy1hZWZjLTRhZDktOGY4Ni0wMmYzMzE2NmI0ZDQiLCJpc1N0dWRlbnQiOnRydWUsImlhdCI6MTY3MTI2MzUwN30.vbQVV9UprJ5WClvBkgiu3WlVx7-HHd0asV6nYfSPj6o",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/user/logout",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["user", "logout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assignment Feed Tutor",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiODU3N2Q3MzMtOTUxNi00ZDI2LWJkZWQtMWU3YTU3OGQ1ZDdhIiwiaXNTdHVkZW50IjpmYWxzZSwiaWF0IjoxNjcxMzY2NjA1fQ.fZeoYv8a7pVo0x8br2tnBf181MxuimuGG_hTv_Sjhw4",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/assignments",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignments"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assignment Feed Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnQzQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiNTRmZTQ4NTUtZjNlZS00OGU3LWE2ZmUtMjFjMDUwMzM0OGE5IiwiaXNTdHVkZW50Ijp0cnVlLCJpYXQiOjE2NzEzNDY5MTJ9.9O7dvcNEKKqlxx6gxtG0Tj3oES3CZSf_BzKKsHpT-v0",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/assignments",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignments"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assignment Details Tutor",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiOGU2NDgyYTktNTYyNS00ZjMxLTk2NzMtYjZjY2MxMTYxYmM0IiwiaXNTdHVkZW50IjpmYWxzZSwiaWF0IjoxNjcxMzA2ODEzfQ.VK6F5DZl1x4pYNMsO8cNdL5k9G7V7oJ3EkskZ760D2g",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/assignment/:id",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "2",
+              "description": "assignmentId"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assignment Details Student",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnQzQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiNTRmZTQ4NTUtZjNlZS00OGU3LWE2ZmUtMjFjMDUwMzM0OGE5IiwiaXNTdHVkZW50Ijp0cnVlLCJpYXQiOjE2NzEzNDY5MTJ9.9O7dvcNEKKqlxx6gxtG0Tj3oES3CZSf_BzKKsHpT-v0",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/assignment/:id",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "9",
+              "description": "assignmentId"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Assignment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiNzc5OWM0NTAtM2IxNC00ZDk0LWIxYjctNDg4YTY3YWFjZjg4IiwiaXNTdHVkZW50IjpmYWxzZSwiaWF0IjoxNjcxMzAwODY2fQ.cCipyDq-VKwKnPsJwFLhroneHItLhhcUoZ0vxwpYFDw",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"description\": \"New Assignment 9\",\n    \"publishDate\": \"2022-12-20\",\n    \"deadlineDate\": \"2022-12-20\",\n    \"studentList\": [5,6,7]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/assignment",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit Assignment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0dWRlbnQzQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiNTRmZTQ4NTUtZjNlZS00OGU3LWE2ZmUtMjFjMDUwMzM0OGE5IiwiaXNTdHVkZW50Ijp0cnVlLCJpYXQiOjE2NzEzNDY5MTJ9.9O7dvcNEKKqlxx6gxtG0Tj3oES3CZSf_BzKKsHpT-v0",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"remark\": \"Remarks for assignment 9\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/assignment/:id",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "9",
+              "description": "assignmentId"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Assignment",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiOGU2NDgyYTktNTYyNS00ZjMxLTk2NzMtYjZjY2MxMTYxYmM0IiwiaXNTdHVkZW50IjpmYWxzZSwiaWF0IjoxNjcxMzA2ODEzfQ.VK6F5DZl1x4pYNMsO8cNdL5k9G7V7oJ3EkskZ760D2g",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"description\": \"Updated Assignment 2 version 1.0\",\n    \"deadlineDate\": \"2022-12-20\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/assignment/:id",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "2",
+              "description": "assignmentId"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Assignment",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QyQHRlc3QuY29tIiwic2Vzc2lvbklkIjoiNzc5OWM0NTAtM2IxNC00ZDk0LWIxYjctNDg4YTY3YWFjZjg4IiwiaXNTdHVkZW50IjpmYWxzZSwiaWF0IjoxNjcxMzAwODY2fQ.cCipyDq-VKwKnPsJwFLhroneHItLhhcUoZ0vxwpYFDw",
+            "type": "text",
+            "description": "JWT Token for Authorization"
+          }
+        ],
+        "url": {
+          "raw": "localhost:3000/assignment/:id",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["assignment", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "7",
+              "description": "assignmentId"
+            }
+          ]
+        },
+        "description": "This request deletes an assignment created by a tutor. Only a tutor can succesfully do this operation. A student would get 403 Unauthorized error to perform this operation"
+      },
+      "response": []
+    }
+  ]
+}
