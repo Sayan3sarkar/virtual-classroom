@@ -9,7 +9,7 @@ const {
 const { validateAssignmentCreation } = require("../middleware/assignment");
 
 module.exports = (app, auth) => {
-  app.get("/assignments", auth, assignmentFeed);
+  app.post("/assignments", auth, assignmentFeed);
   app.get("/assignment/:id", auth, assignmentDetails);
 
   app.post("/assignment", auth, validateAssignmentCreation, createAssignment);

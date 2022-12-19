@@ -145,7 +145,7 @@ const updateSubmission = async (assignmentId, remark, studentId) => {
 
 const formatFilterForTutor = ({ publishedAt, status = "ALL" }) => {
   let currentDate = moment().format("YYYY-MM-DD");
-  const whereCondition = {};
+  let whereCondition = {};
   if (!_isEmpty(publishedAt)) {
     if (publishedAt === "SCHEDULED") {
       whereCondition.publishedAt = {
@@ -173,7 +173,7 @@ const formatFilterForTutor = ({ publishedAt, status = "ALL" }) => {
 };
 
 const assignmentFeedForTutor = async (filter, tutorId) => {
-  const whereCondition = formatFilterForTutor(filter);
+  // const whereCondition = formatFilterForTutor(filter);
   const result = await Assignments.findAll({
     attributes: [
       ["id", "assignmentId"],
@@ -188,7 +188,7 @@ const assignmentFeedForTutor = async (filter, tutorId) => {
     },
     where: {
       tutorId,
-      ...whereCondition,
+      // ...whereCondition,
     },
   });
 
@@ -206,7 +206,7 @@ const assignmentFeedForTutor = async (filter, tutorId) => {
 
 const formatFilterForStudent = ({ publishedAt, status = "ALL" }) => {
   let currentDate = moment().format("YYYY-MM-DD");
-  const whereCondition = {};
+  let whereCondition = {};
 
   // Status Filter
   const acceptableFilters = ["ALL", "PENDING", "SUBMITTED"];
@@ -238,7 +238,7 @@ const formatFilterForStudent = ({ publishedAt, status = "ALL" }) => {
 };
 
 const assignmentFeedForStudent = async (filter, studentId) => {
-  const whereCondition = formatFilterForStudent(filter);
+  // const whereCondition = formatFilterForStudent(filter);
   const result = await Submissions.findAll({
     attributes: [
       ["id", "submissionId"],
@@ -254,7 +254,7 @@ const assignmentFeedForStudent = async (filter, studentId) => {
     },
     where: {
       studentId,
-      ...whereCondition,
+      // ...whereCondition,
     },
   });
 
